@@ -49,23 +49,31 @@ public class WaypointIO {
         return instance;
     }
 
-    public static boolean isInitialized() {
-        return instance != null;
-    }
-
     private static boolean isVersionSupported() {
-        String version = Bukkit.getVersion();
+        String version = Bukkit.getBukkitVersion();
 
         try {
-            String[] parts = version.replaceAll("[^0-9.]", " ").trim().split("\\.");
+            if (version.contains("-")) {
+                version = version.split("-")[0];
+            }
+
+            String[] parts = version.split("\\.");
             if (parts.length >= 3) {
                 int major = Integer.parseInt(parts[0]);
                 int minor = Integer.parseInt(parts[1]);
                 int patch = Integer.parseInt(parts[2]);
 
-                if (major == 1 && minor == 21 && patch >= 5) return true;
+                if (major > 1) return true;
+                if (major == 1) {
+                    if (minor > 21) return true;
+                    if (minor == 21) {
+                        return patch >= 5;
+                    }
+                }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Bukkit.getLogger().warning("[WaypointIO] Failed to parse version: " + version);
+        }
 
         return false;
     }

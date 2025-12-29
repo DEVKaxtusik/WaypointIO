@@ -23,7 +23,7 @@
 
 - Minecraft **1.21.5+**
 - Paper / Spigot / Purpur
-- [PacketEvents](https://github.com/retrooper/packetevents) **2.10.1+**
+- [PacketEvents](https://github.com/retrooper/packetevents) **2.11.1+**
 - Java **21+**
 
 ---
